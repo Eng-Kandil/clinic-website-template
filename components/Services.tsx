@@ -1,7 +1,7 @@
-import { clinic } from "../config/clinic";
+import type { Clinic } from "../config/clinic";
 import { Icon } from "./Icon";
 
-export function Services() {
+export function Services({ clinic }: { clinic: Clinic }) {
   return (
     <section className="section" id="services">
       <div className="container">
@@ -20,7 +20,7 @@ export function Services() {
               <h3>{s.title}</h3>
               <p>{s.description}</p>
               <div className="service__foot">
-                <span className="service__price">{s.price}</span>
+                <span className="service__price">{s.price || "حسب الحالة"}</span>
                 <a href="#booking" className="service__link">
                   احجز
                   <Icon name="arrow" size={16} />

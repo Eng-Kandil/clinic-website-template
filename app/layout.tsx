@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { clinic } from "../config/clinic";
 import "./globals.css";
 
@@ -16,14 +16,6 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  // Brand colors from config/clinic.ts become CSS variables
-  const themeVars = {
-    "--primary": clinic.theme.primary,
-    "--primary-dark": clinic.theme.primaryDark,
-    "--primary-soft": clinic.theme.primarySoft,
-    "--accent": clinic.theme.accent,
-  } as CSSProperties;
-
   return (
     <html lang="ar" dir="rtl">
       <head>
@@ -34,7 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           rel="stylesheet"
         />
       </head>
-      <body style={themeVars}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }

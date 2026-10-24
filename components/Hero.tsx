@@ -1,7 +1,7 @@
-import { clinic, whatsappLink } from "../config/clinic";
+import { whatsappLink, type Clinic } from "../config/clinic";
 import { Icon } from "./Icon";
 
-export function Hero() {
+export function Hero({ clinic }: { clinic: Clinic }) {
   const [first, second] = clinic.services;
   return (
     <section className="hero" id="top">
@@ -19,16 +19,16 @@ export function Hero() {
               <Icon name="calendar" size={20} />
               احجز موعدك الآن
             </a>
-            <a href={whatsappLink("السلام عليكم، أرغب بالاستفسار عن خدماتكم")} className="btn btn--ghost btn--lg" target="_blank" rel="noopener noreferrer">
+            <a href={whatsappLink(clinic.whatsapp, "السلام عليكم، أرغب بالاستفسار عن خدماتكم")} className="btn btn--ghost btn--lg" target="_blank" rel="noopener noreferrer">
               <Icon name="chat" size={20} />
               تواصل عبر واتساب
             </a>
           </div>
 
           <ul className="hero__points">
-            <li><Icon name="check" size={16} /> تأمين طبي معتمد</li>
-            <li><Icon name="check" size={16} /> مواقف مجانية</li>
-            <li><Icon name="check" size={16} /> تأكيد الحجز خلال دقائق</li>
+            {clinic.heroPoints.map((p) => (
+              <li key={p}><Icon name="check" size={16} /> {p}</li>
+            ))}
           </ul>
         </div>
 
@@ -50,6 +50,7 @@ export function Hero() {
             </div>
           </div>
 
+          {clinic.rating && (
           <div className="float-card float-card--rating">
             <div className="stars">
               {Array.from({ length: 5 }).map((_, i) => (
@@ -57,9 +58,10 @@ export function Hero() {
               ))}
             </div>
             <span>
-              <strong>{clinic.stats[3]?.value}</strong> تقييم المراجعين
+              <strong>{clinic.rating}</strong> تقييم المراجعين
             </span>
           </div>
+          )}
 
           <div className="float-card float-card--service">
             <span className="float-card__icon float-card__icon--accent"><Icon name="smile" size={18} /></span>

@@ -1,7 +1,7 @@
-import { clinic, whatsappLink } from "../config/clinic";
+import { whatsappLink, type Clinic } from "../config/clinic";
 import { Icon } from "./Icon";
 
-export function Contact() {
+export function Contact({ clinic }: { clinic: Clinic }) {
   const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(clinic.mapQuery)}&z=15&output=embed`;
   return (
     <section className="section" id="contact">
@@ -41,7 +41,7 @@ export function Contact() {
             </div>
           </div>
 
-          <a href={whatsappLink()} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
+          <a href={whatsappLink(clinic.whatsapp)} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
             <Icon name="chat" size={18} />
             راسلنا على واتساب
           </a>

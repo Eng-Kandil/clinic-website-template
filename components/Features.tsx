@@ -1,7 +1,7 @@
-import { clinic } from "../config/clinic";
+import type { Clinic } from "../config/clinic";
 import { Icon } from "./Icon";
 
-export function Features() {
+export function Features({ clinic }: { clinic: Clinic }) {
   return (
     <section className="section section--dark">
       <div className="container features">

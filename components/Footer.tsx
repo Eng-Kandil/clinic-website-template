@@ -1,4 +1,4 @@
-import { clinic, whatsappLink } from "../config/clinic";
+import { whatsappLink, type Clinic } from "../config/clinic";
 import { Icon } from "./Icon";
 
 const socialLabels: Record<string, string> = {
@@ -8,7 +8,7 @@ const socialLabels: Record<string, string> = {
   tiktok: "تيك توك",
 };
 
-export function Footer() {
+export function Footer({ clinic }: { clinic: Clinic }) {
   const socials = Object.entries(clinic.social).filter(([, url]) => url);
   return (
     <>
@@ -37,7 +37,7 @@ export function Footer() {
       </footer>
 
       {/* Floating WhatsApp button */}
-      <a href={whatsappLink()} className="fab" target="_blank" rel="noopener noreferrer" aria-label="تواصل عبر واتساب">
+      <a href={whatsappLink(clinic.whatsapp)} className="fab" target="_blank" rel="noopener noreferrer" aria-label="تواصل عبر واتساب">
         <Icon name="chat" size={26} />
       </a>
     </>

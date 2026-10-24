@@ -1,4 +1,4 @@
-import { clinic } from "../config/clinic";
+import type { Clinic } from "../config/clinic";
 import { Icon } from "./Icon";
 
 const links = [
@@ -8,7 +8,11 @@ const links = [
   { href: "#contact", label: "الموقع وأوقات العمل" },
 ];
 
-export function Header() {
+export function Header({ clinic }: { clinic: Clinic }) {
+  // Hide links to sections that are turned off (empty lists)
+  const visible = links.filter(
+    (l) => !(l.href === "#doctors" && !clinic.doctors.length) && !(l.href === "#reviews" && !clinic.testimonials.length),
+  );
   return (
     <header className="header">
       <div className="container header__inner">
@@ -20,7 +24,7 @@ export function Header() {
         </a>
 
         <nav className="nav" aria-label="القائمة الرئيسية">
-          {links.map((l) => (
+          {visible.map((l) => (
             <a key={l.href} href={l.href}>
               {l.label}
             </a>

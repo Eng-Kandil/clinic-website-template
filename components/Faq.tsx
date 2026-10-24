@@ -1,7 +1,7 @@
-import { clinic } from "../config/clinic";
+import type { Clinic } from "../config/clinic";
 import { Icon } from "./Icon";
 
-export function Faq() {
+export function Faq({ clinic }: { clinic: Clinic }) {
   return (
     <section className="section section--soft" id="faq">
       <div className="container container--narrow">

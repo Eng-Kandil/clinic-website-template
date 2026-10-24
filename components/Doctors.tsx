@@ -1,4 +1,4 @@
-import { clinic } from "../config/clinic";
+import type { Clinic } from "../config/clinic";
 
 function initials(name: string) {
   // "د. سارة العتيبي" -> "س ع"
@@ -9,7 +9,8 @@ function initials(name: string) {
     .join(" ");
 }
 
-export function Doctors() {
+export function Doctors({ clinic }: { clinic: Clinic }) {
+  if (!clinic.doctors.length) return null;
   return (
     <section className="section section--soft" id="doctors">
       <div className="container">

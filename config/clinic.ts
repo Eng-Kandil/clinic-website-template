@@ -24,7 +24,36 @@ export type IconName =
   | "calendar"
   | "heart";
 
-export const clinic = {
+export type Clinic = {
+  name: string;
+  shortName: string;
+  tagline: string;
+  description: string;
+  seoDescription: string;
+  siteUrl: string;
+  schemaType: string;
+  city: string;
+  district: string;
+  address: string;
+  phone: string;
+  whatsapp: string;
+  email: string;
+  mapQuery: string;
+  booking: { externalUrl: string; timeSlots: string[] };
+  theme: { primary: string; primaryDark: string; primarySoft: string; accent: string };
+  rating: string;
+  heroPoints: string[];
+  hours: { day: string; time: string }[];
+  stats: { value: string; label: string }[];
+  services: { icon: IconName; title: string; description: string; price: string }[];
+  features: { icon: IconName; title: string; text: string }[];
+  doctors: { name: string; title: string; years: number; image: string }[];
+  testimonials: { name: string; text: string; rating: number }[];
+  faqs: { q: string; a: string }[];
+  social: { instagram: string; x: string; snapchat: string; tiktok: string };
+};
+
+export const clinic: Clinic = {
   // ---------- الهوية | Identity ----------
   name: "عيادات بسمة لطب الأسنان",
   shortName: "بسمة",
@@ -35,6 +64,8 @@ export const clinic = {
   seoDescription:
     "عيادات بسمة لطب الأسنان في حي الملقا بالرياض — تقويم، زراعة، تبييض، وعلاج أسنان الأطفال. احجز موعدك عبر واتساب.",
   siteUrl: "https://example.com",
+  // schema.org business type for Google: "Dentist", "MedicalClinic", "Physiotherapy", "BeautySalon"...
+  schemaType: "Dentist",
 
   // ---------- التواصل | Contact ----------
   city: "الرياض",
@@ -68,6 +99,12 @@ export const clinic = {
     { day: "السبت – الخميس", time: "9:00 ص – 10:00 م" },
     { day: "الجمعة", time: "4:00 م – 10:00 م" },
   ],
+
+  // ---------- الواجهة | Hero ----------
+  // Google rating shown on the hero card. Leave "" to hide the card.
+  rating: "4.9",
+  // Short selling points under the hero buttons. Only list what is true for this clinic.
+  heroPoints: ["تأمين طبي معتمد", "مواقف مجانية", "تأكيد الحجز خلال دقائق"],
 
   // ---------- أرقام سريعة | Quick stats ----------
   stats: [
@@ -125,7 +162,7 @@ export const clinic = {
     { icon: "users" as IconName, title: "لكل العائلة", text: "علاج للكبار والصغار في مكان واحد." },
   ],
 
-  // ---------- الأطباء | Doctors ----------
+  // ---------- الأطباء | Doctors (empty list hides the section) ----------
   // image: put a file in /public/images (e.g. "/images/dr-sara.jpg"). Leave "" to show initials.
   doctors: [
     { name: "د. سارة العتيبي", title: "استشارية تقويم الأسنان", years: 14, image: "" },
@@ -134,7 +171,7 @@ export const clinic = {
     { name: "د. خالد الدوسري", title: "أخصائي علاج العصب", years: 11, image: "" },
   ],
 
-  // ---------- آراء المراجعين | Testimonials ----------
+  // ---------- آراء المراجعين | Testimonials (empty list hides the section) ----------
   testimonials: [
     { name: "أم عبدالله", text: "تعامل راقٍ جداً، وابني صار يحب يروح لدكتور الأسنان بعد ما كان يخاف.", rating: 5 },
     { name: "محمد الحربي", text: "سويت زراعة عندهم والنتيجة ممتازة. الدكتور شرح لي كل خطوة قبل ما يبدأ.", rating: 5 },
@@ -158,10 +195,8 @@ export const clinic = {
   },
 };
 
-export type Clinic = typeof clinic;
-
 /** Builds a wa.me link with an optional pre-filled message. */
-export function whatsappLink(message = "") {
-  const base = `https://wa.me/${clinic.whatsapp}`;
+export function whatsappLink(whatsapp: string, message = "") {
+  const base = `https://wa.me/${whatsapp}`;
   return message ? `${base}?text=${encodeURIComponent(message)}` : base;
 }

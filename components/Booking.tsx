@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { clinic, whatsappLink } from "../config/clinic";
+import { whatsappLink, type Clinic } from "../config/clinic";
 import { Icon } from "./Icon";
 
-export function Booking() {
+export function Booking({ clinic }: { clinic: Clinic }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [service, setService] = useState(clinic.services[0]?.title ?? "");
@@ -23,7 +23,7 @@ export function Booking() {
       notes && `ملاحظات: ${notes}`,
     ].filter(Boolean) as string[];
     const lines = [`السلام عليكم، أرغب بحجز موعد في ${clinic.name}`, "", ...details];
-    window.open(whatsappLink(lines.join("\n")), "_blank", "noopener,noreferrer");
+    window.open(whatsappLink(clinic.whatsapp, lines.join("\n")), "_blank", "noopener,noreferrer");
   }
 
   const external = clinic.booking.externalUrl;
